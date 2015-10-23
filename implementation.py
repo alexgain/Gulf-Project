@@ -1,7 +1,10 @@
 import collections
 import time
 from random import randint
-t1=time.time()
+import copy
+import random
+import bisect
+
 class Document:
     title=''
     data=''
@@ -24,6 +27,24 @@ class Document:
         self.keywords[word]=False
     def increase(self,n):
         self.listed+=n
+    def assign(self,k):
+        self.keywords=k
+
+    #def __eq__(self, other):
+#        return PRs(self) == PRs(other)
+    def __hash__(self):
+        return hash(PRs(self))
+    def __ne__(self, other):
+        return PRs(self)!=PRs(other)
+    def __lt__(self,other):
+        return PRs(self)<PRs(other)
+    def __le__(self,other):
+        return PRs(self)<=PRs(other)
+    def __gt__(self,other):
+        return PRs(self)>PRs(other)
+    def __ge__(self,other):
+        return PRs(self)>=PRs(other)
+
 class Person:
     name=''
     questionaire={'works_in_industry':False,'environmentalist':False,'economist':False,'30orOlder':False,\
@@ -117,56 +138,146 @@ person.Qchange('lovesanimals')
 
 
 #PRs:
-final1=set()
-final2={}
-for d in documents:
-    final2[d]=0
 
-for d in documents:
+def PRs(d):
+    k=0
     if (person.questionaire['works_in_industry'] and d.keywords['industry']):
-        final1.add((d,5))
+        k+=5
     if (person.questionaire['environmentalist'] and d.keywords['ocean']):
-        final1.add((d,4))
+        k+=4
     if (person.questionaire['economist'] and d.keywords['economics']):
-        final1.add((d,5))
+        k+=5
     if (person.questionaire['30orOlder'] and d.keywords['foradults']):
-        final1.add((d,4))
+        k+=4
     if (person.questionaire['likesmath'] and d.keywords['math']):
-        final1.add((d,5))
+        k+=5
     if (person.questionaire['hatesmath'] and d.keywords['math']):
-        final1.add((d,-7))
+        k-=7
     if (person.questionaire['SellsOil'] and d.keywords['excessoil']):
-        final1.add((d,5))
+        k+=5
     if (person.questionaire['lovesanimals'] and d.keywords['animals']):
-        final1.add((d,4))
+        k+=4
     if (person.questionaire['isDoctor'] and d.keywords['medical']):
-        final1.add((d,5))
+        k+=5
     if (not person.questionaire['works_in_industry'] and d.keywords['industry']):
-        final1.add((d,-2))
+        k-=2
     if (not person.questionaire['environmentalist'] and d.keywords['ocean']):
-        final1.add((d,-2))
+        k-=2
     if (not person.questionaire['economist'] and d.keywords['economics']):
-        final1.add((d,-2))
+        k-=2
     if (not person.questionaire['30orOlder'] and d.keywords['foradults']):
-        final1.add((d,-1))
+        k-=1
     if (not person.questionaire['likesmath'] and d.keywords['math']):
-        final1.add((d,-2))
+        k-=2
     if (not person.questionaire['SellsOil'] and d.keywords['excessoil']):
-        final1.add((d,-1))
+        k-=1
     if (not person.questionaire['lovesanimals'] and d.keywords['animals']):
-        final1.add((d,-1))
+        k-=1
     if (not person.questionaire['isDoctor'] and d.keywords['medical']):
-        final1.add((d,-2))
+        k-=2
+    return k
+
+#Brute force
+def brute_force(K):
+    D={}
+    for d in documents:
+        D[d.title]=PRs(d)
+
+    return sorted(D, key=D.get, reverse=True)[:K]
+
+#stochastic local search
+def neighbors(d):
+    neighbors=[]
+    for x in d.keywords:
+        k=copy.copy(d.keywords)
+        k[x]=not k[x]
+        d1=Document('n')
+        d1.assign(k)
+        neighbors.append(copy.copy(d1))
+    return neighbors
+
+dk=[]
+for d in documents:
+    dk.append(d.keywords)
+
+def neighbors2(d):
+    neighbors=[]
+    for x in d.keywords:
+        k=copy.copy(d.keywords)
+        k[x]=not k[x]
+        d1=Document('n')
+        d1.assign(k)
+        if d1.keywords in dk:
+            neighbors.append(copy.copy(d1))
+    return neighbors
 
 
-for x in final1:
-    final2[x[0]]+=x[1]
-readable={}
-for k in final2:
-    readable[str(k)]=final2[k]
-print(sorted(readable, key=readable.get, reverse=True)[:20])
-t2=time.time()
-print((t2-t1))
+def FLS(I,K):
+    random.seed()
+    d=random.choice(documents)
+    top=[]
+    k=PRs(d)
+    for i in range(I):
+        neighbors1=neighbors(d)
+        r={}                        
+        for x in neighbors1:
+            r[x]=PRs(x)
+        m=max(r, key=r.get)
+        if r[m]>k:
+            top.append(m)
+            d=m
+            k=r[m]
+        else:
+            d=random.choice(documents)
+#    top=top.sort()
+    top=top[len(top)-1:len(top)-1-K:-1]
+    return top
+
+def SLS(I,K):
+    random.seed()
+    d=random.choice(documents)
+    top=[]
+    k=PRs(d)
+    for i in range(I):
+        r = { r:PRs(r) for r in neighbors(d) }
+        r = { k1:v for k1, v in r.items() if v > k }
+        if len(r)>0:
+            d = random.choice(list(r.keys()))
+            bisect.insort(top, d)
+            k=r[d]
+        else:
+            d=random.choice(documents)
+            bisect.insort(top, d)
+
+    top=top[len(top)-1:len(top)-(K+1):-1]
+    return top
+
+
+def SLS2(I,K):
+    random.seed()
+    d=random.choice(documents)
+    top=[]
+    k=PRs(d)
+    for i in range(I):
+        r = { r:PRs(r) for r in neighbors2(d) }
+        r = { k1:v for k1, v in r.items() if v > k }
+        if len(r)>0:
+            d = random.choice(list(r.keys()))
+            bisect.insort(top, d)
+            k=r[d]
+        else:
+            d=random.choice(documents)
+            bisect.insort(top, d)
+
+    top=top[len(top)-1:len(top)-(K+1):-1]
+    return top
+
+
+def uniqueL(seq):
+    seen = set()
+    seen_add = seen.add
+    return [ x for x in seq if not (x in seen or seen_add(x))]
+
 
 
 
