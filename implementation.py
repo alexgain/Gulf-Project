@@ -46,11 +46,10 @@ class Document:
         return PRs(self)>=PRs(other)
 
 class Person:
-    name=''
-    questionaire={'works_in_industry':False,'environmentalist':False,'economist':False,'30orOlder':False,\
-                  'diabetic':False,'likesmath':False,'hatesmath':False,'SellsOil':False,'lovesanimals':False,'isDoctor':False}
     def __init__(self,nam):
         self.name=nam
+        self.questionaire={'works_in_industry':False,'environmentalist':False,'economist':False,'30orOlder':False,\
+                  'diabetic':False,'likesmath':False,'hatesmath':False,'SellsOil':False,'lovesanimals':False,'isDoctor':False}
     def Qchange(self,q):
         self.questionaire[q]=not self.questionaire[q]    
     def print_q(self):
