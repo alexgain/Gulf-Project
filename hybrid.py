@@ -250,6 +250,8 @@ def final_list(l, k):
     return final
 
 '''
+CODE TO TEST SPECIFICALLY "FINAL_LIST" FUNCTION
+
 def print_list(L):
     for i in L:
         print i, " "
@@ -276,3 +278,57 @@ d10 = Document('d10')
 print_list(final_list([d1,d2,d3,d3,d4,d3,d5,d1,d10],10))
 '''
 
+# # # # # #
+# # # # # #
+
+'''
+TO DO
+
+-function: given person,find percentage of each category person is
+-function: given percentage of each category a person belongs to, output top k documents for that person (zipup function)
+
+
+1)
+PSEUDO CODE (compute list of docs for a person)
+
+run "make category list" on each category a user represents (store
+    returned list)
+
+A user is composed of n categories (each category has a weight, which sum
+    up to 1)
+
+For each category, compute the list of documents using make_category_list.
+For each document in the list, store the document as a key in a dictionary with
+the current category's weight as the value.
+If the same document is encountered again in a different category's list,
+find that document in the dictionary and cumulatively add this category's
+weight to the existing value.
+
+return the dictionary {Document: cumulative value for user}
+
+|
+|
+|
+V
+
+2)
+PSEUDO CODE FOR the next FUNCTION
+
+input: dictionary {Document: cumulative value for user}
+output:
+
+sort the dictionary by value and add to list
+or iterate through and add the Documents to a list in order of value
+(high to low or low to high)
+
+return sorted list (perhaps have function that selects top k documents)
+
+'''
+
+# 1)
+# assume "User" has a method that retrieves information (e.g. a dictionary with keys as category and values as
+# personal weight for that user)
+# input: user ("object"), clist, docs, method, I, K
+
+# def list_per_user( __inputs__ ):
+#     return dict_of_docs_and_values
