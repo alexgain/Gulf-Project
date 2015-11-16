@@ -162,20 +162,37 @@ def uniqueL(seq):
     return [ x for x in seq if not (x in seen or seen_add(x))]
 
 
-
+'''
+asks person, "Which categories do you belong too?"
+outputs a dictionary, with keys of Strings (identifier of person) and values of Person object
+(imaginary person that represents only one category)
+'''
 def make_category_list():
     """None -> dict(str,Person)
     Make a list of persons, each representing a category.
     """
-    plist={}
+    pdict={}
+    # class implementation, class Person
+    # creating random Person object
     pbase=implementation.Person('%imaginary%')
     for k in pbase.questionaire:
-        plist[str(k)] = implementation.Person('%imaginary%'+str(k))
-        plist[str(k)].Qchange(str(k))
-    return plist
+        pdict[str(k)] = implementation.Person('%imaginary%'+str(k))
+        pdict[str(k)].Qchange(str(k))
+    return pdict
+
+'''
+returns a dictionary where the key is a string (name of category that
+the list represents) and the value is a list of documents
+
+clist -- list of people (that represent categories)
+docs -- list of documents
+method -- determines method to call e.g. FLS, SLS, etc.
+I -- # of iterations for FLS, SLS, etc.
+K -- # of docs
+'''
 
 def use_category_list(clist,docs,method,I,K):
-    """dict(str,Person) -> [Document] -> (int->int->Person->[Document]) ->
+    """dict(str,Person) -> [Document] -> (int->int->[Documents]->Person->[Document]) ->
       int -> int -> dict(str,[Document])"""
     outdct = {}
     for k in clist:
@@ -199,4 +216,63 @@ def fancy_results(dres, file=sys.stdout):
         for y in dres[x]:
             print("\t"+str(y),file=file)
     return
+
+
+'''
+zips up the "top k" documents for each category, which may repeat documents in a list of
+at most (# of categories)*(k) documents
+
+input: dictionary -- key: string that is the category, value: list of documents in order that
+best relate to that category
+
+output: a list of documents
+'''
+# input: list l of ordered documents (repeats)
+# output: final of list of documents (no repeats) of size k
+
+def final_list(l, k):
+
+    count = {}
+    final = []
+    
+    # adds docs in order from input list ignoring repeats until length k
+    for doc in l:
+        if len(final) == k:
+            break
+        
+        d = doc.title
+        if d in count.keys():
+            count[d] += 1
+        else:
+            count[d] = 1
+            final.append(doc)
+
+    return final
+
+'''
+def print_list(L):
+    for i in L:
+        print i, " "
+
+
+class Document:
+    title=''
+    def __init__(self,t):
+        self.title=t
+    def __str__(self):
+        return self.title
+
+d1 = Document('d1')
+d2 = Document('d2')
+d3 = Document('d3')
+d4 = Document('d4')
+d5 = Document('d5')
+d6 = Document('d6')
+d7 = Document('d7')
+d8 = Document('d8')
+d9 = Document('d9')
+d10 = Document('d10')
+
+print_list(final_list([d1,d2,d3,d3,d4,d3,d5,d1,d10],10))
+'''
 
