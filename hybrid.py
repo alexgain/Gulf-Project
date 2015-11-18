@@ -11,7 +11,7 @@ import sys
 
 def general_PRs(d,p):
     """Document->Person->int
-    Generatized version of implementation.PRs
+    Generalized version of implementation.PRs
     """
     k=0
     if (p.questionaire['works_in_industry'] and d.keywords['industry']):
@@ -49,6 +49,7 @@ def general_PRs(d,p):
     if (not p.questionaire['isDoctor'] and d.keywords['medical']):
         k-=2
     return k
+
 
 #Brute force
 def general_brute_force(K,docs,p):
@@ -180,6 +181,17 @@ def make_category_list():
         pdict[str(k)].Qchange(str(k))
     return pdict
 
+
+# input: dictionary created by make_category_list()
+# output: list of categories (instances of class Person)
+def cat_dict_to_cat_list(cat_dict):
+    cat_list = []
+    for i,j in cat_dict.items():
+        cat_list.append(j)
+    return cat_list
+
+
+
 '''
 returns a dictionary where the key is a string (name of category that
 the list represents) and the value is a list of documents
@@ -196,7 +208,7 @@ def use_category_list(clist,docs,method,I,K):
       int -> int -> dict(str,[Document])"""
     outdct = {}
     for k in clist:
-        cat = clist[k]
+        cat = k
         outdct[k] = method(I,K,docs,cat)
     return outdct
         
@@ -249,37 +261,7 @@ def final_list(l, k):
 
     return final
 
-'''
-CODE TO TEST SPECIFICALLY "FINAL_LIST" FUNCTION
 
-def print_list(L):
-    for i in L:
-        print i, " "
-
-
-class Document:
-    title=''
-    def __init__(self,t):
-        self.title=t
-    def __str__(self):
-        return self.title
-
-d1 = Document('d1')
-d2 = Document('d2')
-d3 = Document('d3')
-d4 = Document('d4')
-d5 = Document('d5')
-d6 = Document('d6')
-d7 = Document('d7')
-d8 = Document('d8')
-d9 = Document('d9')
-d10 = Document('d10')
-
-print_list(final_list([d1,d2,d3,d3,d4,d3,d5,d1,d10],10))
-'''
-
-# # # # # #
-# # # # # #
 
 '''
 TO DO
@@ -297,7 +279,7 @@ run "make category list" on each category a user represents (store
 A user is composed of n categories (each category has a weight, which sum
     up to 1)
 
-For each category, compute the list of documents using make_category_list.
+For each category, compute the list of documents using use_category_list.
 For each document in the list, store the document as a key in a dictionary with
 the current category's weight as the value.
 If the same document is encountered again in a different category's list,
@@ -325,10 +307,200 @@ return sorted list (perhaps have function that selects top k documents)
 
 '''
 
-# 1)
-# assume "User" has a method that retrieves information (e.g. a dictionary with keys as category and values as
-# personal weight for that user)
-# input: user ("object"), clist, docs, method, I, K
+class Document:
+    title=''
+    data=''
+    listed=0
+    keywords={}
+    def __init__(self,t):
+        self.title=t
+        self.data=''
+        self.listed=0
+        self.keywords={'industry':False,'economics':False,'ocean':False,'foradults':False,'medical':False,'math':False,'excessoil':False,'animals':False,\
+                       'sugar':False}
 
-# def list_per_user( __inputs__ ):
-#     return dict_of_docs_and_values
+    def __str__(self):
+        return self.title
+    def add_keyword(self,word):
+        self.keywords[word]=True
+    def print_keywords(self):
+        print(self.keywords)
+    def remove_keyword(self,word):
+        self.keywords[word]=False
+    def increase(self,n):
+        self.listed+=n
+    def assign(self,k):
+        self.keywords=k
+
+    def __hash__(self):
+        return hash(PRs(self))
+    def __ne__(self, other):
+        return PRs(self)!=PRs(other)
+    def __lt__(self,other):
+        return PRs(self)<PRs(other)
+    def __le__(self,other):
+        return PRs(self)<=PRs(other)
+    def __gt__(self,other):
+        return PRs(self)>PRs(other)
+    def __ge__(self,other):
+        return PRs(self)>=PRs(other)
+
+class Person:
+    def __init__(self,nam):
+        self.name=nam
+        self.questionaire={'works_in_industry':False,'environmentalist':False,'economist':False,'30orOlder':False,\
+                  'diabetic':False,'likesmath':False,'hatesmath':False,'SellsOil':False,'lovesanimals':False,'isDoctor':False}
+        self.weights={'works_in_industry':0.0,'environmentalist':0.0,'economist':0.0,'30orOlder':0.0,\
+                  'diabetic':0.0,'likesmath':0.0,'hatesmath':0.0,'SellsOil':0.0,'lovesanimals':0.0,'isDoctor':0.0}
+    def Qchange(self,q):
+        self.questionaire[q]=not self.questionaire[q]    
+    def print_q(self):
+        print(self.questionaire)
+    # cat is a str, w is a floating point num
+    def set_weight(self,cat,w):
+        self.weights[cat]=w
+
+###############################################
+# sample users Laura and Chris
+
+lo = Person("Laura")
+lo.Qchange('environmentalist')
+lo.Qchange('economist')
+lo.Qchange('lovesanimals')
+lo.set_weight('environmentalist', 0.2)
+lo.set_weight('economist', 0.3)
+lo.set_weight('lovesanimals', 0.5)
+#print (lo.name, lo.questionaire)
+
+chris = Person("Chris")
+chris.Qchange('30orOlder')
+chris.Qchange('SellsOil')
+chris.Qchange('works_in_industry')
+chris.Qchange('lovesanimals')
+#print (chris.name, chris.questionaire)
+
+################################################
+# test Cody's function (use_category_list_brute)
+
+# very very applicable to lo
+d1 = Document('d1')
+d1.add_keyword('economics')
+d1.add_keyword('animals')
+d1.add_keyword('ocean')
+
+# very very applicable to chris
+d2 = Document('d2')
+d2.add_keyword('foradults')
+d2.add_keyword('excessoil')
+d2.add_keyword('industry')
+
+# semi-applicable to both chris and lo
+d3 = Document('d3')
+d3.add_keyword('ocean')
+d3.add_keyword('animals')
+
+# more applicable to chris than lo
+d4 = Document('d4')
+d4.add_keyword('medical')
+d4.add_keyword('math')
+d4.add_keyword('foradults')
+d4.add_keyword('excessoil')
+d4.add_keyword('industry')
+
+docs = [d1,d2,d3,d4]
+
+cat1 = implementation.Person("economist")
+cat1.Qchange('economist')
+
+cat2 = implementation.Person("environmentalist")
+cat2.Qchange('environmentalist')
+
+cat3 = implementation.Person("30orOlder")
+cat3.Qchange('30orOlder')
+
+d = use_category_list_brute([cat1,cat2,cat3],docs,4,4)
+#print (d)
+
+
+# helper function
+# takes string and creates an instance of class Person (category)
+# returns the instance of class Person (category)
+def str_to_cat(s):
+    cat = implementation.Person("%s" % s)
+    cat.Qchange(s)
+    return cat
+
+# generates clist for a user (helper method for list_per_user)
+# clist is a list with each element as a category (str) the user is
+def clist_per_user(person):
+    clist = []
+    for key,val in person.questionaire.items():
+        if (val == True):
+            clist.append(key)
+        else:
+            continue
+    return clist
+
+# helper function
+def find_doc_in_list(docs, title):
+    for d in docs:
+        if d.title == title:
+            return d
+        else:
+            continue
+    return "Error. Document not found with that title."
+
+
+# person is a user (instance of class Person)
+# docs is a list of all documents in the system
+# I is the number of iterations (moot point for brute force)
+# K is the number of documents in final list
+def list_per_user(person, docs, I, K):
+
+    # clist is a list of the categories the user belongs to
+    clist = clist_per_user(person)
+
+    cat_list = []
+    # convert list of strings to list of categories for person
+    # cat_list is now a list of categories as instances of the class Person for the specific user
+    for i in clist:
+        cat_list.append(str_to_cat(i))
+        
+    # final_dict is a dictionary with keys as categories and values as a list of docs for that category
+    final_dict = use_category_list_brute(cat_list, docs, I, K)
+
+    # for each document in value lists, store in dictionary as key and accumulate the value as weight
+    weighted_docs = {}
+    for cat_instance,value_list in final_dict.items():
+        
+        # store weight and doc in dictionary weighted_docs
+        for d in value_list:
+            curr_doc = find_doc_in_list(docs, d)
+            curr_weight = general_PRs(curr_doc, cat_instance)
+            
+            if d not in weighted_docs.keys():
+                weighted_docs[d] = curr_weight
+            else:
+                weighted_docs[d] += curr_weight
+
+    return select_top_k_docs(weighted_docs,K)
+
+# helper method
+# sorts dictionary of documents by weight (selects highest k docs)
+# returns list of k docs (those most applicable to hybrid user)
+def select_top_k_docs(dict_of_docs, k):
+    # optimization (for future reference)
+    # if num of docs - k (non fits) is > k (fits), select top k
+    # if num of docs - k (non fits) is < k (fits), delete minimums until num of docs == k
+
+    final_list = sorted(dict_of_docs,key=dict_of_docs.get,reverse=True)[:k]
+    return final_list
+
+
+################################################
+# FINAL TEST: do the methods return an accurate list of most applicable documents
+# for hybrid users??? YES!
+
+print(lo.name, list_per_user(lo, docs, 4, 4))
+
+print(chris.name, list_per_user(chris, docs, 4, 4))
