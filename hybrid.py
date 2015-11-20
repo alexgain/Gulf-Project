@@ -263,116 +263,16 @@ def final_list(l, k):
 
 
 
-'''
-TO DO
-
--function: given person,find percentage of each category person is
--function: given percentage of each category a person belongs to, output top k documents for that person (zipup function)
-
-
-1)
-PSEUDO CODE (compute list of docs for a person)
-
-run "make category list" on each category a user represents (store
-    returned list)
-
-A user is composed of n categories (each category has a weight, which sum
-    up to 1)
-
-For each category, compute the list of documents using use_category_list.
-For each document in the list, store the document as a key in a dictionary with
-the current category's weight as the value.
-If the same document is encountered again in a different category's list,
-find that document in the dictionary and cumulatively add this category's
-weight to the existing value.
-
-return the dictionary {Document: cumulative value for user}
-
-|
-|
-|
-V
-
-2)
-PSEUDO CODE FOR the next FUNCTION
-
-input: dictionary {Document: cumulative value for user}
-output:
-
-sort the dictionary by value and add to list
-or iterate through and add the Documents to a list in order of value
-(high to low or low to high)
-
-return sorted list (perhaps have function that selects top k documents)
-
-'''
-
-class Document:
-    title=''
-    data=''
-    listed=0
-    keywords={}
-    def __init__(self,t):
-        self.title=t
-        self.data=''
-        self.listed=0
-        self.keywords={'industry':False,'economics':False,'ocean':False,'foradults':False,'medical':False,'math':False,'excessoil':False,'animals':False,\
-                       'sugar':False}
-
-    def __str__(self):
-        return self.title
-    def add_keyword(self,word):
-        self.keywords[word]=True
-    def print_keywords(self):
-        print(self.keywords)
-    def remove_keyword(self,word):
-        self.keywords[word]=False
-    def increase(self,n):
-        self.listed+=n
-    def assign(self,k):
-        self.keywords=k
-
-    def __hash__(self):
-        return hash(PRs(self))
-    def __ne__(self, other):
-        return PRs(self)!=PRs(other)
-    def __lt__(self,other):
-        return PRs(self)<PRs(other)
-    def __le__(self,other):
-        return PRs(self)<=PRs(other)
-    def __gt__(self,other):
-        return PRs(self)>PRs(other)
-    def __ge__(self,other):
-        return PRs(self)>=PRs(other)
-
-class Person:
-    def __init__(self,nam):
-        self.name=nam
-        self.questionaire={'works_in_industry':False,'environmentalist':False,'economist':False,'30orOlder':False,\
-                  'diabetic':False,'likesmath':False,'hatesmath':False,'SellsOil':False,'lovesanimals':False,'isDoctor':False}
-        self.weights={'works_in_industry':0.0,'environmentalist':0.0,'economist':0.0,'30orOlder':0.0,\
-                  'diabetic':0.0,'likesmath':0.0,'hatesmath':0.0,'SellsOil':0.0,'lovesanimals':0.0,'isDoctor':0.0}
-    def Qchange(self,q):
-        self.questionaire[q]=not self.questionaire[q]    
-    def print_q(self):
-        print(self.questionaire)
-    # cat is a str, w is a floating point num
-    def set_weight(self,cat,w):
-        self.weights[cat]=w
-
 ###############################################
 # sample users Laura and Chris
 
-lo = Person("Laura")
+lo = implementation.Person("Laura")
 lo.Qchange('environmentalist')
 lo.Qchange('economist')
 lo.Qchange('lovesanimals')
-lo.set_weight('environmentalist', 0.2)
-lo.set_weight('economist', 0.3)
-lo.set_weight('lovesanimals', 0.5)
 #print (lo.name, lo.questionaire)
 
-chris = Person("Chris")
+chris = implementation.Person("Chris")
 chris.Qchange('30orOlder')
 chris.Qchange('SellsOil')
 chris.Qchange('works_in_industry')
@@ -380,27 +280,27 @@ chris.Qchange('lovesanimals')
 #print (chris.name, chris.questionaire)
 
 ################################################
-# test Cody's function (use_category_list_brute)
+# create test documents
 
 # very very applicable to lo
-d1 = Document('d1')
+d1 = implementation.Document('d1')
 d1.add_keyword('economics')
 d1.add_keyword('animals')
 d1.add_keyword('ocean')
 
 # very very applicable to chris
-d2 = Document('d2')
+d2 = implementation.Document('d2')
 d2.add_keyword('foradults')
 d2.add_keyword('excessoil')
 d2.add_keyword('industry')
 
 # semi-applicable to both chris and lo
-d3 = Document('d3')
+d3 = implementation.Document('d3')
 d3.add_keyword('ocean')
 d3.add_keyword('animals')
 
 # more applicable to chris than lo
-d4 = Document('d4')
+d4 = implementation.Document('d4')
 d4.add_keyword('medical')
 d4.add_keyword('math')
 d4.add_keyword('foradults')
@@ -408,18 +308,6 @@ d4.add_keyword('excessoil')
 d4.add_keyword('industry')
 
 docs = [d1,d2,d3,d4]
-
-cat1 = implementation.Person("economist")
-cat1.Qchange('economist')
-
-cat2 = implementation.Person("environmentalist")
-cat2.Qchange('environmentalist')
-
-cat3 = implementation.Person("30orOlder")
-cat3.Qchange('30orOlder')
-
-d = use_category_list_brute([cat1,cat2,cat3],docs,4,4)
-#print (d)
 
 
 # helper function
@@ -450,11 +338,13 @@ def find_doc_in_list(docs, title):
             continue
     return "Error. Document not found with that title."
 
-
+# Input:
 # person is a user (instance of class Person)
 # docs is a list of all documents in the system
 # I is the number of iterations (moot point for brute force)
 # K is the number of documents in final list
+# Output:
+# list of top k weighted documents for the specific user
 def list_per_user(person, docs, I, K):
 
     # clist is a list of the categories the user belongs to
@@ -485,7 +375,7 @@ def list_per_user(person, docs, I, K):
 
     return select_top_k_docs(weighted_docs,K)
 
-# helper method
+# helper function
 # sorts dictionary of documents by weight (selects highest k docs)
 # returns list of k docs (those most applicable to hybrid user)
 def select_top_k_docs(dict_of_docs, k):
