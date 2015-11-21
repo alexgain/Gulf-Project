@@ -57,7 +57,8 @@ def general_brute_force(K,docs,p):
     for d in docs:
         D[d.title]=general_PRs(d,p)
 
-    return sorted(D, key=D.get, reverse=True)[:K]
+    return [find_doc_in_list(docs,a)
+            for a in sorted(D, key=D.get, reverse=True)[:K]]
 
 def general_brute_force_iter(I,K,docs,p):
     return general_brute_force(K,docs,p)
@@ -86,7 +87,7 @@ def general_neighbors2(d,dke):
     return neighbors
 
 def gen_doc_key_combos(docs):
-    """[Documents] -> [dict(str,Boolean)]
+    """[Documents] -> [dict(str,bool)]
     Generate a list of document keyword combinations from a
     list of documents."""
     dk=[]
@@ -126,11 +127,13 @@ def general_SLS(I,K,docs,p):
         r = { k1:v for k1, v in r.items() if v > k }
         if len(r)>0:
             d = random.choice(list(r.keys()))
-            bisect.insort(top, d)
+            if d not in top:
+                bisect.insort(top, d)
             k=r[d]
         else:
             d=random.choice(docs)
-            bisect.insort(top, d)
+            if d not in top:
+                bisect.insort(top, d)
 
     top=top[len(top)-1:len(top)-(K+1):-1]
     return top
@@ -147,11 +150,17 @@ def general_SLS2(I,K,docs,p):
         r = { k1:v for k1, v in r.items() if v > k }
         if len(r)>0:
             d = random.choice(list(r.keys()))
-            bisect.insort(top, d)
-            k=r[d]
+            dx = find_doc_in_list_by_keywords(docs,d.keywords)
+            if dx is not None:
+                if dx not in top:
+                    bisect.insort(top, dx)
+                k=r[d]
         else:
             d=random.choice(docs)
-            bisect.insort(top, d)
+            dx = find_doc_in_list_by_keywords(docs,d.keywords)
+            if dx is not None:
+                if dx not in top:
+                    bisect.insort(top, dx)
 
     top=top[len(top)-1:len(top)-(K+1):-1]
     return top
@@ -336,7 +345,17 @@ def find_doc_in_list(docs, title):
             return d
         else:
             continue
-    return "Error. Document not found with that title."
+    return None #"Error. Document not found with that title."
+def find_doc_in_list_by_title(docs, title):
+    return find_doc_in_list(docs,title)
+def find_doc_in_list_by_keywords(docs, keywords):
+    for d in docs:
+        if d.keywords == keywords:
+            return d
+        else:
+            continue
+    return None #"Error. Document not found with that title."
+    
 
 # Input:
 # person is a user (instance of class Person)
@@ -357,7 +376,7 @@ def list_per_user(person, docs, I, K):
         cat_list[i] = str_to_cat(i)
         
     # final_dict is a dictionary with keys as categories and values as a list of docs for that category
-    final_dict = use_category_list_brute(cat_list, docs, I, K)
+    final_dict = use_category_list_SLS2(cat_list, docs, I, K)
 
     # for each document in value lists, store in dictionary as key and accumulate the value as weight
     weighted_docs = {}
@@ -366,13 +385,14 @@ def list_per_user(person, docs, I, K):
         # store weight and doc in dictionary weighted_docs
         cat_instance = str_to_cat(cat_string)
         for d in value_list:
-            curr_doc = find_doc_in_list(docs, d)
-            curr_weight = general_PRs(curr_doc, cat_instance)
-            
-            if d not in weighted_docs.keys():
-                weighted_docs[d] = curr_weight
-            else:
-                weighted_docs[d] += curr_weight
+            curr_doc = d #find_doc_in_list(docs, d)
+            if curr_doc is not None:
+                curr_weight = general_PRs(curr_doc, cat_instance)
+                
+                if d not in weighted_docs.keys():
+                    weighted_docs[d] = curr_weight
+                else:
+                    weighted_docs[d] += curr_weight
 
     return select_top_k_docs(weighted_docs,K)
 
@@ -392,6 +412,6 @@ def select_top_k_docs(dict_of_docs, k):
 # FINAL TEST: do the methods return an accurate list of most applicable documents
 # for hybrid users??? YES!
 
-print(lo.name, list_per_user(lo, docs, 4, 4))
+print(lo.name, list_per_user(lo, docs, 400, 4))
 
-print(chris.name, list_per_user(chris, docs, 4, 4))
+print(chris.name, list_per_user(chris, docs, 400, 4))

@@ -19,6 +19,19 @@ class Document:
 
     def __str__(self):
         return self.title
+    def __repr__(self):
+        s = ""
+        c = getattr(self,'__class__',None)
+        if c is not None:
+            m = getattr(self,'__module__',None)
+            if m is not None:
+                s += str(m)+'.'
+            m = getattr(self,'__name__','Document')
+            s += str(m)
+        else:
+            s = "Document"
+        s += '('+repr(self.title)+')'
+        return s
     def add_keyword(self,word):
         self.keywords[word]=True
     def print_keywords(self):
