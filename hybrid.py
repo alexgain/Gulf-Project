@@ -208,7 +208,7 @@ def use_category_list(clist,docs,method,I,K):
       int -> int -> dict(str,[Document])"""
     outdct = {}
     for k in clist:
-        cat = k
+        cat = clist[k]
         outdct[k] = method(I,K,docs,cat)
     return outdct
         
@@ -350,20 +350,21 @@ def list_per_user(person, docs, I, K):
     # clist is a list of the categories the user belongs to
     clist = clist_per_user(person)
 
-    cat_list = []
+    cat_list = {}
     # convert list of strings to list of categories for person
     # cat_list is now a list of categories as instances of the class Person for the specific user
     for i in clist:
-        cat_list.append(str_to_cat(i))
+        cat_list[i] = str_to_cat(i)
         
     # final_dict is a dictionary with keys as categories and values as a list of docs for that category
     final_dict = use_category_list_brute(cat_list, docs, I, K)
 
     # for each document in value lists, store in dictionary as key and accumulate the value as weight
     weighted_docs = {}
-    for cat_instance,value_list in final_dict.items():
+    for cat_string,value_list in final_dict.items():
         
         # store weight and doc in dictionary weighted_docs
+        cat_instance = str_to_cat(cat_string)
         for d in value_list:
             curr_doc = find_doc_in_list(docs, d)
             curr_weight = general_PRs(curr_doc, cat_instance)
