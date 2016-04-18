@@ -161,8 +161,12 @@ def general_SLS2(I,K,docs,p):
             if dx is not None:
                 if dx not in top:
                     bisect.insort(top, dx)
+                k=general_PRs(dx,p)
 
-    top=top[len(top)-1:len(top)-(K+1):-1]
+    if len(top) >= K:
+        pass
+    else:
+        top=top[len(top)-1:len(top)-(K+1):-1]
     return top
 
 
