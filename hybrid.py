@@ -161,7 +161,6 @@ def general_SLS2(I,K,docs,p):
             if dx is not None:
                 if dx not in top:
                     bisect.insort(top, dx)
-                k=general_PRs(dx,p)
 
     if len(top) >= K:
         pass
@@ -368,7 +367,7 @@ def find_doc_in_list_by_keywords(docs, keywords):
 # K is the number of documents in final list
 # Output:
 # list of top k weighted documents for the specific user
-def list_per_user(person, docs, I, K):
+def list_per_user(person, docs, I, K, typ="sls2"):
 
     # clist is a list of the categories the user belongs to
     clist = clist_per_user(person)
@@ -380,7 +379,10 @@ def list_per_user(person, docs, I, K):
         cat_list[i] = str_to_cat(i)
         
     # final_dict is a dictionary with keys as categories and values as a list of docs for that category
-    final_dict = use_category_list_SLS2(cat_list, docs, I, K)
+    if typ=="brute":
+        final_dict = use_category_list_brute(cat_list, docs, I, K)
+    else:
+        final_dict = use_category_list_SLS2(cat_list, docs, I, K)
 
     # for each document in value lists, store in dictionary as key and accumulate the value as weight
     weighted_docs = {}
@@ -416,6 +418,18 @@ def select_top_k_docs(dict_of_docs, k):
 # FINAL TEST: do the methods return an accurate list of most applicable documents
 # for hybrid users??? YES!
 
-print(lo.name, list_per_user(lo, docs, 400, 4))
+def post_evaluation(docs, person):
+    n = 0
+    for i in docs:
+        n += general_PRs(i, person)
+    return n
 
-print(chris.name, list_per_user(chris, docs, 400, 4))
+test_l = list_per_user(lo   , docs, 400, 3)
+print(lo.name, "..", test_l, post_evaluation(test_l, lo))
+test_l = list_per_user(lo   , docs, 400, 3, "brute")
+print(lo.name, "[]", test_l, post_evaluation(test_l, lo))
+
+test_l = list_per_user(chris, docs, 400, 3)
+print(chris.name, "..", test_l, post_evaluation(test_l, chris))
+test_l = list_per_user(chris, docs, 400, 3, "brute")
+print(chris.name, "[]", test_l, post_evaluation(test_l, chris))
