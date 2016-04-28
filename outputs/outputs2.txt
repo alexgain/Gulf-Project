@@ -1,0 +1,836 @@
+Python 3.5.0 (default, Jan 11 2016, 15:58:33)  [GCC 5.3.0 64 bit (AMD64)] on win32
+Type "copyright", "credits" or "license()" for more information.
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 36, in <module>
+    exec("d%d=Document('d%d')"%(i,i))
+  File "<string>", line 1, in <module>
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 11, in __init__
+    super(self).__init__(self,t)
+TypeError: must be type, not Document
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 36, in <module>
+    exec("d%d=Document('d%d')"%(i,i))
+  File "<string>", line 1, in <module>
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 11, in __init__
+    super(self).__init__(t)
+TypeError: must be type, not Document
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 56, in <module>
+    person=Person('John')
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 22, in __init__
+    super().__init__(nam)
+TypeError: object.__init__() takes no parameters
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 50, in <module>
+    exec("d%d.assign(k%d)"%(i,i))
+  File "<string>", line 1, in <module>
+NameError: name 'd1000' is not defined
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+0.015628337860107422
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 276, in <module>
+    FLS(20,10)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 190, in FLS
+    r = { r:PRs(r) for r in neighbors3(d) }
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 190, in <dictcomp>
+    r = { r:PRs(r) for r in neighbors3(d) }
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\implementation.py", line 49, in __hash__
+    return hash(PRs(self))
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\implementation.py", line 156, in PRs
+    if (person.questionaire['works_in_industry'] and d.keywords['industry']):
+KeyError: 'industry'
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+0.015630245208740234
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 278, in <module>
+    FLS(20,10)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 195, in FLS
+    bisect.insort(top, m)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\implementation.py", line 53, in __lt__
+    return PRs(self)<PRs(other)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\implementation.py", line 156, in PRs
+    if (person.questionaire['works_in_industry'] and d.keywords['industry']):
+KeyError: 'industry'
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+0.015622138977050781
+0.0
+0.0
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+0.1562647819519043
+0.0
+0.0
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+0.15623140335083008
+0.01552271842956543
+0.015625715255737305
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+0.15626144409179688
+0.015504837036132812
+0.015643596649169922
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+0.14061999320983887
+['d8872', 'd58', 'd1182', 'd1877', 'd9162', 'd287', 'd6841', 'd2426', 'd6468', 'd8050']
+0.015642642974853516
+0.015594959259033203
+[implementation.Document('d4'), implementation.Document('n'), implementation.Document('d16'), implementation.Document('n'), implementation.Document('d12'), implementation.Document('d28'), implementation.Document('d28'), implementation.Document('d29'), implementation.Document('d30'), implementation.Document('d29')]
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 7, in <module>
+    import hybrid2
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 440, in <module>
+    print(lo.name, "..", test_l, post_evaluation(test_l, lo))
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 431, in post_evaluation
+    return post_evaluation_ex(docs,person,prs)
+NameError: name 'prs' is not defined
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 7, in <module>
+    import hybrid2
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 440, in <module>
+    print(lo.name, "..", test_l, post_evaluation(test_l, lo))
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 431, in post_evaluation
+    return post_evaluation_ex(docs,person,PRs)
+NameError: name 'PRs' is not defined
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 9, in <module>
+    class Document(implementation.Document):
+NameError: name 'implementation' is not defined
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 9, in <module>
+    class Document(hybrid2.Document):
+AttributeError: module 'hybrid2' has no attribute 'Document'
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+0.1405935287475586
+['d1856', 'd2323', 'd2326', 'd8862', 'd8020', 'd7414', 'd1725', 'd2198', 'd4944', 'd8237']
+0.0
+[__main__.Document('d4519'), __main__.Document('d4929'), __main__.Document('d4882'), __main__.Document('d8950'), __main__.Document('d9165'), __main__.Document('d5556'), __main__.Document('d9065'), __main__.Document('d5140'), __main__.Document('d5390'), __main__.Document('d6428')]
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 299, in <module>
+    hybrid2.prsWrapper(PRs), "sls2")
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 388, in list_per_user_ex
+    cat_list[i] = str_to_cat(i)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 330, in str_to_cat
+    cat.Qchange(s)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\implementation.py", line 67, in Qchange
+    self.questionaire[q]=not self.questionaire[q]
+KeyError: 'k9'
+>>> print self
+SyntaxError: Missing parentheses in call to 'print'
+>>> print(self)
+Traceback (most recent call last):
+  File "<pyshell#1>", line 1, in <module>
+    print(self)
+NameError: name 'self' is not defined
+>>> type(person)
+<class '__main__.Person'>
+>>> help(type)
+Help on class type in module builtins:
+
+class type(object)
+ |  type(object_or_name, bases, dict)
+ |  type(object) -> the object's type
+ |  type(name, bases, dict) -> a new type
+ |  
+ |  Methods defined here:
+ |  
+ |  __call__(self, /, *args, **kwargs)
+ |      Call self as a function.
+ |  
+ |  __delattr__(self, name, /)
+ |      Implement delattr(self, name).
+ |  
+ |  __dir__(...)
+ |      __dir__() -> list
+ |      specialized __dir__ implementation for types
+ |  
+ |  __getattribute__(self, name, /)
+ |      Return getattr(self, name).
+ |  
+ |  __init__(self, /, *args, **kwargs)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |  
+ |  __instancecheck__(...)
+ |      __instancecheck__() -> bool
+ |      check if an object is an instance
+ |  
+ |  __new__(*args, **kwargs)
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  __prepare__(...)
+ |      __prepare__() -> dict
+ |      used to create the namespace for the class statement
+ |  
+ |  __repr__(self, /)
+ |      Return repr(self).
+ |  
+ |  __setattr__(self, name, value, /)
+ |      Implement setattr(self, name, value).
+ |  
+ |  __sizeof__(...)
+ |      __sizeof__() -> int
+ |      return memory consumption of the type object
+ |  
+ |  __subclasscheck__(...)
+ |      __subclasscheck__() -> bool
+ |      check if a class is a subclass
+ |  
+ |  __subclasses__(...)
+ |      __subclasses__() -> list of immediate subclasses
+ |  
+ |  mro(...)
+ |      mro() -> list
+ |      return a type's method resolution order
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __abstractmethods__
+ |  
+ |  __dict__
+ |  
+ |  __text_signature__
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __base__ = <class 'object'>
+ |      The most base type
+ |  
+ |  __bases__ = (<class 'object'>,)
+ |  
+ |  __basicsize__ = 864
+ |  
+ |  __dictoffset__ = 264
+ |  
+ |  __flags__ = -2146675712
+ |  
+ |  __itemsize__ = 40
+ |  
+ |  __mro__ = (<class 'type'>, <class 'object'>)
+ |  
+ |  __weakrefoffset__ = 368
+
+>>> type(person)()
+Traceback (most recent call last):
+  File "<pyshell#4>", line 1, in <module>
+    type(person)()
+TypeError: __init__() missing 1 required positional argument: 'nam'
+>>> a = 4
+>>> a.Qchange("k4")
+Traceback (most recent call last):
+  File "<pyshell#6>", line 1, in <module>
+    a.Qchange("k4")
+AttributeError: 'int' object has no attribute 'Qchange'
+>>> person.Qchange("99")
+Traceback (most recent call last):
+  File "<pyshell#7>", line 1, in <module>
+    person.Qchange("99")
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 41, in Qchange
+    self.questionaire[q]=not self.questionaire[q]
+KeyError: '99'
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+0.14902496337890625
+['d4929', 'd5967', 'd1881', 'd8420', 'd2284', 'd6506', 'd9181', 'd4809', 'd2289', 'd1984']
+0.008013010025024414
+[__main__.Document('d8333'), __main__.Document('d3850'), __main__.Document('d9483'), __main__.Document('d6338'), __main__.Document('d5184'), __main__.Document('d5905'), __main__.Document('d8947'), __main__.Document('d5329'), __main__.Document('d7305'), __main__.Document('d1885')]
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 299, in <module>
+    hybrid2.prsWrapper(PRs), "sls2")
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 410, in list_per_user_ex
+    final_dict = use_category_list_SLS2(cat_list, docs, I, K, prs)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 234, in use_category_list_SLS2
+    return use_category_list(clist,docs,general_SLS2,I,K,prs)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 224, in use_category_list
+    outdct[k] = method(I,K,docs,cat,prs)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 149, in general_SLS2
+    r = { r:pRs(r,p) for r in general_neighbors2(d,dke) }
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 149, in <dictcomp>
+    r = { r:pRs(r,p) for r in general_neighbors2(d,dke) }
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\implementation.py", line 49, in __hash__
+    return hash(PRs(self))
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\implementation.py", line 156, in PRs
+    if (person.questionaire['works_in_industry'] and d.keywords['industry']):
+KeyError: 'industry'
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 8, in <module>
+    import hybrid2
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 455, in <module>
+    test_l = list_per_user(lo   , docs, 400, 3)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 393, in list_per_user
+    return list_per_user_ex(person,docs,I,K,general_PRs,typ)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 410, in list_per_user_ex
+    final_dict = use_category_list_SLS2(cat_list, docs, I, K, prs)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 234, in use_category_list_SLS2
+    return use_category_list(clist,docs,general_SLS2,I,K,prs)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 224, in use_category_list
+    outdct[k] = method(I,K,docs,cat,prs)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 149, in general_SLS2
+    r = { r:pRs(r,p) for r in general_neighbors2(d,dke) }
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 149, in <dictcomp>
+    r = { r:pRs(r,p) for r in general_neighbors2(d,dke) }
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\implementation.py", line 50, in __hash__
+    return hash(self.keywords)
+TypeError: unhashable type: 'dict'
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 8, in <module>
+    import hybrid2
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 455, in <module>
+    test_l = list_per_user(lo   , docs, 400, 3)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 393, in list_per_user
+    return list_per_user_ex(person,docs,I,K,general_PRs,typ)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 410, in list_per_user_ex
+    final_dict = use_category_list_SLS2(cat_list, docs, I, K, prs)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 234, in use_category_list_SLS2
+    return use_category_list(clist,docs,general_SLS2,I,K,prs)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 224, in use_category_list
+    outdct[k] = method(I,K,docs,cat,prs)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 149, in general_SLS2
+    r = { r:pRs(r,p) for r in general_neighbors2(d,dke) }
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 149, in <dictcomp>
+    r = { r:pRs(r,p) for r in general_neighbors2(d,dke) }
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\implementation.py", line 61, in __hash__
+    return keywords_hash(self.keywords)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\implementation.py", line 13, in keywords_hash
+    for k,v in dk:
+ValueError: too many values to unpack (expected 2)
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+0.15625262260437012
+['d8936', 'd2545', 'd6030', 'd7531', 'd6184', 'd2877', 'd3725', 'd9768', 'd2775', 'd6205']
+0.015607357025146484
+[__main__.Document('d7868'), __main__.Document('d9849'), __main__.Document('d8874'), __main__.Document('d1050'), __main__.Document('d5996'), __main__.Document('d7616'), __main__.Document('d8571'), __main__.Document('d8847'), __main__.Document('d525'), __main__.Document('d4768')]
+77.82712173461914
+[__main__.Document('d2681'), __main__.Document('d2603'), __main__.Document('d4495'), __main__.Document('d6743'), __main__.Document('d7911'), __main__.Document('d885'), __main__.Document('d9190'), __main__.Document('d3993'), __main__.Document('d8010'), __main__.Document('d3692')]
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+
+0.14063143730163574
+['d2346', 'd2718', 'd7330', 'd6237', 'd618', 'd8823', 'd1072', 'd8945', 'd1568', 'd4384']
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 290, in <module>
+    print(hybrid2.post_evaluation_ex(results,person,hybrid2.prsWrapper(PRs)))
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 452, in post_evaluation_ex
+    n += general_PRs(i, person)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 17, in general_PRs
+    if (p.questionaire['works_in_industry'] and d.keywords['industry']):
+KeyError: 'works_in_industry'
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+
+0.15624332427978516
+['d522', 'd1672', 'd2554', 'd1719', 'd4327', 'd52', 'd5702', 'd2962', 'd8656', 'd9056']
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 290, in <module>
+    print(hybrid2.post_evaluation_ex(results,person,hybrid2.prsWrapper(PRs)))
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 452, in post_evaluation_ex
+    n += prs(i, person)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 381, in out
+    return f(doc)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 77, in PRs
+    if (person.questionaire['k1'] and d.keywords[1]):
+AttributeError: 'str' object has no attribute 'keywords'
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+
+0.1718742847442627
+[__main__.Document('d7965'), __main__.Document('d7165'), __main__.Document('d4088'), __main__.Document('d8936'), __main__.Document('d2353'), __main__.Document('d7947'), __main__.Document('d6057'), __main__.Document('d3107'), __main__.Document('d3144'), __main__.Document('d9871')]
+1131
+0.0
+[__main__.Document('d3763'), __main__.Document('d8450'), __main__.Document('d7278'), __main__.Document('d6326'), __main__.Document('d7888'), __main__.Document('d3063'), __main__.Document('d9305'), __main__.Document('d8261'), __main__.Document('d6316'), __main__.Document('d4403')]
+932
+
+79.53282737731934
+[__main__.Document('d3911'), __main__.Document('d5166'), __main__.Document('d6454'), __main__.Document('d2813'), __main__.Document('d4396'), __main__.Document('d3824'), __main__.Document('d8805'), __main__.Document('d7182'), __main__.Document('d4286'), __main__.Document('d6698')]
+846
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+
+0.17186856269836426
+[__main__.Document('d3124'), __main__.Document('d8281'), __main__.Document('d5872'), __main__.Document('d4504'), __main__.Document('d9131'), __main__.Document('d3870'), __main__.Document('d9075'), __main__.Document('d8392'), __main__.Document('d6753'), __main__.Document('d9373')]
+1128
+0.01562356948852539
+[__main__.Document('d7652'), __main__.Document('d6593'), __main__.Document('d2464'), __main__.Document('d3700'), __main__.Document('d3486'), __main__.Document('d1365'), __main__.Document('d7421'), __main__.Document('d8531'), __main__.Document('d2850'), __main__.Document('d606')]
+929
+
+785.0713725090027
+[__main__.Document('d9666'), __main__.Document('d2772'), __main__.Document('d4308'), __main__.Document('d5292'), __main__.Document('d8332'), __main__.Document('d6158'), __main__.Document('d7364'), __main__.Document('d1026'), __main__.Document('d7898'), __main__.Document('d6653')]
+884
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+
+0.1718752384185791
+[__main__.Document('d7143'), __main__.Document('d7315'), __main__.Document('d3117'), __main__.Document('d2875'), __main__.Document('d3721'), __main__.Document('d7806'), __main__.Document('d2621'), __main__.Document('d6429'), __main__.Document('d8248'), __main__.Document('d8645')]
+1162
+1.2343685626983643
+[__main__.Document('d7143'), __main__.Document('d7315'), __main__.Document('d3117'), __main__.Document('d7806'), __main__.Document('d2875'), __main__.Document('d2621'), __main__.Document('d6429'), __main__.Document('d5294'), __main__.Document('d1044'), __main__.Document('d4466')]
+1157
+
+7731.567018270493
+[__main__.Document('d487'), __main__.Document('d6223'), __main__.Document('d3223'), __main__.Document('d3065'), __main__.Document('d4466'), __main__.Document('d1551'), __main__.Document('d3219'), __main__.Document('d7583'), __main__.Document('d7132'), __main__.Document('d308')]
+941
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+
+0.1562488079071045
+[__main__.Document('d1385'), __main__.Document('d236'), __main__.Document('d7002'), __main__.Document('d1382'), __main__.Document('d4182'), __main__.Document('d9032'), __main__.Document('d5581'), __main__.Document('d6354'), __main__.Document('d5745'), __main__.Document('d9198')]
+1180
+0.0937342643737793
+[__main__.Document('d6354'), __main__.Document('d8188'), __main__.Document('d5708'), __main__.Document('d3907'), __main__.Document('d1198'), __main__.Document('d8885'), __main__.Document('d9612'), __main__.Document('d3474'), __main__.Document('d971'), __main__.Document('d784')]
+1061
+
+763.6851675510406
+[__main__.Document('d4160'), __main__.Document('d1971'), __main__.Document('d1231'), __main__.Document('d5043'), __main__.Document('d3923'), __main__.Document('d9676'), __main__.Document('d410'), __main__.Document('d7276'), __main__.Document('d5214'), __main__.Document('d4504')]
+896
+
+7.53124737739563
+[__main__.Document('d1385'), __main__.Document('d7002'), __main__.Document('d4182'), __main__.Document('d236'), __main__.Document('d1382'), __main__.Document('d5581'), __main__.Document('d9032'), __main__.Document('d6354'), __main__.Document('d5745'), __main__.Document('d9198')]
+1180
+>>> int("foo")
+Traceback (most recent call last):
+  File "<pyshell#8>", line 1, in <module>
+    int("foo")
+ValueError: invalid literal for int() with base 10: 'foo'
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 8, in <module>
+    import hybrid2
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 460, in <module>
+    test_l = list_per_user(lo   , docs, 400, 3)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 393, in list_per_user
+    return list_per_user_ex(person,docs,I,K,general_PRs,typ)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 415, in list_per_user_ex
+    return list_per_user_pregen(person,docs,prs,final_dict)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 419, in list_per_user_pregen
+    for cat_string,value_list in pregen.items():
+AttributeError: 'NoneType' object has no attribute 'items'
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 8, in <module>
+    import hybrid2
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 461, in <module>
+    test_l = list_per_user(lo   , docs, 400, 3)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 393, in list_per_user
+    return list_per_user_ex(person,docs,I,K,general_PRs,typ)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 416, in list_per_user_ex
+    return list_per_user_pregen(person,docs,prs,final_dict)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 434, in list_per_user_pregen
+    return select_top_k_docs(weighted_docs,K)
+NameError: name 'K' is not defined
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Traceback (most recent call last):
+  File "C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py", line 8, in <module>
+    import hybrid2
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 461, in <module>
+    test_l = list_per_user(lo   , docs, 400, 3)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 393, in list_per_user
+    return list_per_user_ex(person,docs,I,K,general_PRs,typ)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 416, in list_per_user_ex
+    return list_per_user_pregen(person,docs,prs,final_dict)
+  File "C:/msys64/home/cs2/gulf/Gulf-Project\hybrid2.py", line 434, in list_per_user_pregen
+    return select_top_k_docs(weighted_docs,K)
+NameError: name 'K' is not defined
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+Iterations: 100
+Top ?: 
+Generating 10000 documents...
+Documents ready.
+
+0.1718757152557373
+[__main__.Document('d8039'), __main__.Document('d311'), __main__.Document('d7725'), __main__.Document('d4664'), __main__.Document('d9761'), __main__.Document('d9852'), __main__.Document('d6821'), __main__.Document('d5333'), __main__.Document('d4091'), __main__.Document('d1293')]
+1146
+0.062497854232788086
+[__main__.Document('d8446'), __main__.Document('d9404'), __main__.Document('d8493'), __main__.Document('d1575'), __main__.Document('d3890'), __main__.Document('d6727'), __main__.Document('d5035'), __main__.Document('d9896'), __main__.Document('d8336'), __main__.Document('d597')]
+1028
+
+401.46808099746704
+
+0.5624973773956299
+[__main__.Document('d9031'), __main__.Document('d3145'), __main__.Document('d9936'), __main__.Document('d3004'), __main__.Document('d9093'), __main__.Document('d1311'), __main__.Document('d9163'), __main__.Document('d7734'), __main__.Document('d2083'), __main__.Document('d5418')]
+906
+
+7.968771934509277
+
+0.031145334243774414
+[__main__.Document('d8039'), __main__.Document('d311'), __main__.Document('d4664'), __main__.Document('d7725'), __main__.Document('d9761'), __main__.Document('d9852'), __main__.Document('d6821'), __main__.Document('d5333'), __main__.Document('d1293'), __main__.Document('d4091')]
+1146
+>>> 
+========== RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/hybrid2.py ==========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+Iterations: 20
+Top ?: 4
+Generating 10000 documents...
+Documents ready.
+
+0.18752264976501465
+[__main__.Document('d6654'), __main__.Document('d3579'), __main__.Document('d9306'), __main__.Document('d7269')]
+471
+0.01150059700012207
+[__main__.Document('d1136'), __main__.Document('d9321'), __main__.Document('d3475'), __main__.Document('d2274')]
+372
+
+0.052506446838378906
+
+0.01701951026916504
+[__main__.Document('d2987'), __main__.Document('d3349'), __main__.Document('d1005'), __main__.Document('d5020')]
+369
+
+8.970886468887329
+
+0.01546931266784668
+[__main__.Document('d6654'), __main__.Document('d3579'), __main__.Document('d9306'), __main__.Document('d7269')]
+471
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+Iterations: 100
+Top ?: 4
+Generating 10000 documents...
+Documents ready.
+
+0.19254136085510254
+[__main__.Document('d2756'), __main__.Document('d5567'), __main__.Document('d4736'), __main__.Document('d124')]
+475
+
+0.06352114677429199
+[__main__.Document('d1732'), __main__.Document('d4562'), __main__.Document('d4340'), __main__.Document('d1503')]
+419
+
+0.27559614181518555
+
+0.016988515853881836
+[__main__.Document('d9957'), __main__.Document('d6939'), __main__.Document('d6379'), __main__.Document('d527')]
+405
+
+9.296188354492188
+
+0.015489339828491211
+[__main__.Document('d2756'), __main__.Document('d4736'), __main__.Document('d5567'), __main__.Document('d124')]
+475
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+Iterations: 1000
+Top ?: 4
+Generating 10000 documents...
+Documents ready.
+
+0.17552590370178223
+[__main__.Document('d379'), __main__.Document('d3730'), __main__.Document('d9301'), __main__.Document('d5697')]
+469
+
+0.6675992012023926
+[__main__.Document('d3730'), __main__.Document('d5697'), __main__.Document('d730'), __main__.Document('d1595')]
+457
+
+2.532417058944702
+
+0.015018939971923828
+[__main__.Document('d6020'), __main__.Document('d1595'), __main__.Document('d2398'), __main__.Document('d8283')]
+443
+
+8.937182426452637
+
+0.014001846313476562
+[__main__.Document('d3730'), __main__.Document('d379'), __main__.Document('d9301'), __main__.Document('d5697')]
+469
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+Iterations: 10000
+Top ?: 4
+Generating 10000 documents...
+Documents ready.
+
+0.18603897094726562
+[__main__.Document('d3918'), __main__.Document('d8868'), __main__.Document('d967'), __main__.Document('d7724')]
+487
+
+8.772928237915039
+[__main__.Document('d3918'), __main__.Document('d8868'), __main__.Document('d7724'), __main__.Document('d967')]
+487
+
+25.99214816093445
+
+0.015759706497192383
+[__main__.Document('d8868'), __main__.Document('d3918'), __main__.Document('d7724'), __main__.Document('d967')]
+487
+
+8.553789377212524
+
+0.022153139114379883
+[__main__.Document('d3918'), __main__.Document('d8868'), __main__.Document('d967'), __main__.Document('d7724')]
+487
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+Iterations: 5000
+Top ?: 4
+Generating 10000 documents...
+Documents ready.
+
+0.18453216552734375
+[__main__.Document('d4813'), __main__.Document('d5369'), __main__.Document('d8153'), __main__.Document('d6506')]
+485
+
+3.8951053619384766
+[__main__.Document('d4813'), __main__.Document('d8153'), __main__.Document('d2957'), __main__.Document('d6506')]
+481
+
+11.916821718215942
+
+0.0
+[__main__.Document('d4813'), __main__.Document('d5369'), __main__.Document('d8153'), __main__.Document('d6506')]
+485
+
+8.62057876586914
+
+0.021662235260009766
+[__main__.Document('d4813'), __main__.Document('d5369'), __main__.Document('d8153'), __main__.Document('d6506')]
+485
+>>> 
+========= RESTART: C:/msys64/home/cs2/gulf/Gulf-Project/bigimplem.py =========
+Laura .. [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Laura [] [implementation.Document('d1'), implementation.Document('d3'), implementation.Document('d2')] 17
+Chris .. [implementation.Document('d2'), implementation.Document('d3'), implementation.Document('d4')] 26
+Chris [] [implementation.Document('d2'), implementation.Document('d1'), implementation.Document('d4')] 24
+Generating 10000 documents...
+Documents ready.
+Iterations: 2500
+Top ?: 10
+
+0.15367436408996582
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d881'), __main__.Document('d199'), __main__.Document('d8979'), __main__.Document('d4264')]
+1144
+
+1.6264152526855469
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d8979'), __main__.Document('d4264'), __main__.Document('d4789'), __main__.Document('d5927')]
+1142
+
+6.054863691329956
+
+0.03575634956359863
+[__main__.Document('d9324'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d6926'), __main__.Document('d1206'), __main__.Document('d5722'), __main__.Document('d2904'), __main__.Document('d199'), __main__.Document('d5927'), __main__.Document('d6544')]
+1130
+
+8.391157865524292
+
+0.03377485275268555
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d881'), __main__.Document('d4264'), __main__.Document('d199'), __main__.Document('d8979')]
+1144
+Run the test again? (y/n): y
+Iterations: 2500
+Top ?: 4
+
+0.15368270874023438
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247')]
+468
+
+1.5730504989624023
+[__main__.Document('d1871'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904')]
+463
+
+5.569323778152466
+
+0.015624284744262695
+[__main__.Document('d5722'), __main__.Document('d9324'), __main__.Document('d8247'), __main__.Document('d5775')]
+459
+
+8.18470025062561
+
+0.0
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d8247'), __main__.Document('d5722')]
+468
+Run the test again? (y/n): 1
+Iterations: 250
+Top ?: 10
+
+0.14718914031982422
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d881'), __main__.Document('d199'), __main__.Document('d8979'), __main__.Document('d4264')]
+1144
+
+0.11847519874572754
+[__main__.Document('d5722'), __main__.Document('d4789'), __main__.Document('d6711'), __main__.Document('d459'), __main__.Document('d4321'), __main__.Document('d4849'), __main__.Document('d4309'), __main__.Document('d674'), __main__.Document('d7293'), __main__.Document('d2200')]
+1066
+
+0.5861775875091553
+
+0.03778862953186035
+[__main__.Document('d758'), __main__.Document('d3077'), __main__.Document('d1871'), __main__.Document('d881'), __main__.Document('d5775'), __main__.Document('d3463'), __main__.Document('d4849'), __main__.Document('d9762'), __main__.Document('d1672'), __main__.Document('d9553')]
+1060
+
+8.322771072387695
+
+0.04889321327209473
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d881'), __main__.Document('d4264'), __main__.Document('d199'), __main__.Document('d8979')]
+1144
+Run the test again? (y/n): y
+Iterations: 5000
+Top ?: 10
+
+0.16922783851623535
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d881'), __main__.Document('d199'), __main__.Document('d8979'), __main__.Document('d4264')]
+1144
+
+3.4274818897247314
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d8247'), __main__.Document('d5722'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d4264'), __main__.Document('d881'), __main__.Document('d8979'), __main__.Document('d199')]
+1144
+
+11.881794691085815
+
+0.03126645088195801
+[__main__.Document('d9324'), __main__.Document('d1871'), __main__.Document('d8247'), __main__.Document('d6926'), __main__.Document('d8979'), __main__.Document('d199'), __main__.Document('d5722'), __main__.Document('d4264'), __main__.Document('d186'), __main__.Document('d2904')]
+1143
+
+8.475489616394043
+
+0.03377246856689453
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d881'), __main__.Document('d4264'), __main__.Document('d199'), __main__.Document('d8979')]
+1144
+Run the test again? (y/n): y
+Iterations: 10000
+Top ?: 10
+
+0.1640768051147461
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d881'), __main__.Document('d199'), __main__.Document('d8979'), __main__.Document('d4264')]
+1144
+
+7.318946838378906
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d8247'), __main__.Document('d5722'), __main__.Document('d2904'), __main__.Document('d186'), __main__.Document('d199'), __main__.Document('d881'), __main__.Document('d4264'), __main__.Document('d8979')]
+1144
+
+24.948371171951294
+
+0.036293745040893555
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d8247'), __main__.Document('d881'), __main__.Document('d8979'), __main__.Document('d5775'), __main__.Document('d6926')]
+1142
+
+8.453634023666382
+
+0.037801504135131836
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d881'), __main__.Document('d4264'), __main__.Document('d199'), __main__.Document('d8979')]
+1144
+Run the test again? (y/n): y
+Iterations: 20000
+Top ?: 10
+
+0.15363693237304688
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d881'), __main__.Document('d199'), __main__.Document('d8979'), __main__.Document('d4264')]
+1144
+
+15.163771867752075
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d2904'), __main__.Document('d186'), __main__.Document('d199'), __main__.Document('d881'), __main__.Document('d8979'), __main__.Document('d4264')]
+1144
+
+47.616589069366455
+
+0.018661975860595703
+[__main__.Document('d8247'), __main__.Document('d1871'), __main__.Document('d5722'), __main__.Document('d2904'), __main__.Document('d9324'), __main__.Document('d8979'), __main__.Document('d4264'), __main__.Document('d186'), __main__.Document('d881'), __main__.Document('d5775')]
+1143
+
+8.476438522338867
+
+0.03377366065979004
+[__main__.Document('d1871'), __main__.Document('d9324'), __main__.Document('d5722'), __main__.Document('d8247'), __main__.Document('d186'), __main__.Document('d2904'), __main__.Document('d881'), __main__.Document('d4264'), __main__.Document('d199'), __main__.Document('d8979')]
+1144
+Run the test again? (y/n): n
+>>> 

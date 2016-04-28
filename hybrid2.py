@@ -168,6 +168,29 @@ def general_SLS2(I,K,docs,p,pRs):
         top=top[len(top)-1:len(top)-(K+1):-1]
     return top
 
+def general_SLS4(I,K,docs,p,pRs):
+    random.seed()
+    if len(docs) <= K:
+        return [x for x in docs]
+
+    top=[]
+    totalprs = 0
+    for i in range(I):
+        d = random.choice(docs)
+        if d not in top:
+            if len(top) < K:
+                top.append(d)
+                totalprs += pRs(d,p)
+            else:
+                pos = random.randint(0,K-1)
+                oldpr = pRs(top[pos],p)
+                newpr = pRs(d,p)
+                if oldpr < newpr:
+                    top[pos] = d
+                    totalprs -= oldpr
+                    totalprs += newpr
+    return top
+
 
 def uniqueL(seq):
     seen = set()
@@ -232,6 +255,8 @@ def use_category_list_SLS(clist,docs,I,K,prs):
     return use_category_list(clist,docs,general_SLS,I,K,prs)
 def use_category_list_SLS2(clist,docs,I,K,prs):
     return use_category_list(clist,docs,general_SLS2,I,K,prs)
+def use_category_list_SLS4(clist,docs,I,K,prs):
+    return use_category_list(clist,docs,general_SLS4,I,K,prs)
 
 def fancy_results(dres, file=sys.stdout):
     """dict(str,[Document]) -> None"""
@@ -392,7 +417,7 @@ def prsWrapper(f):
 def list_per_user(person, docs, I, K, typ="sls2"):
     return list_per_user_ex(person,docs,I,K,general_PRs,typ)
 
-def list_per_user_ex(person, docs, I, K, prs, typ="sls2"):
+def pregen_categories(person, docs, I, K, prs, typ="sls2"):
 
     # clist is a list of the categories the user belongs to
     clist = clist_per_user(person)
@@ -406,12 +431,20 @@ def list_per_user_ex(person, docs, I, K, prs, typ="sls2"):
     # final_dict is a dictionary with keys as categories and values as a list of docs for that category
     if typ=="brute":
         final_dict = use_category_list_brute(cat_list, docs, I, K, prs)
+    elif typ=="sls4":
+        final_dict = use_category_list_SLS4(cat_list, docs, I, K, prs)
     else:
         final_dict = use_category_list_SLS2(cat_list, docs, I, K, prs)
+    return final_dict
 
+def list_per_user_ex(person, docs, I, K, prs, typ="sls2"):
+    final_dict = pregen_categories(person,docs,I,K,prs,typ)
     # for each document in value lists, store in dictionary as key and accumulate the value as weight
+    return list_per_user_pregen(person,docs,prs,K,final_dict)
+
+def list_per_user_pregen(person, docs, prs, K, pregen):
     weighted_docs = {}
-    for cat_string,value_list in final_dict.items():
+    for cat_string,value_list in pregen.items():
         
         # store weight and doc in dictionary weighted_docs
         cat_instance = str_to_cat(cat_string)
