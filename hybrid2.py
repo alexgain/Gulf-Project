@@ -52,16 +52,16 @@ def general_PRs(d,p):
 
 
 #Brute force
-def general_brute_force(K,docs,p):
+def general_brute_force(K,docs,p,pRs):
     D={}
     for d in docs:
-        D[d.title]=general_PRs(d,p)
+        D[d.title]=pRs(d,p)
 
     return [find_doc_in_list(docs,a)
             for a in sorted(D, key=D.get, reverse=True)[:K]]
 
-def general_brute_force_iter(I,K,docs,p):
-    return general_brute_force(K,docs,p)
+def general_brute_force_iter(I,K,docs,p,pRs):
+    return general_brute_force(K,docs,p,pRs)
 
 #stochastic local search
 def neighbors(d):
@@ -96,16 +96,16 @@ def gen_doc_key_combos(docs):
     return dk
 
 
-def general_FLS(I,K,docs,p):
+def general_FLS(I,K,docs,p,pRs):
     random.seed()
     d=random.choice(docs)
     top=[]
-    k=general_PRs(d,p)
+    k=pRs(d,p)
     for i in range(I):
         neighbors1=neighbors(d)
         r={}                        
         for x in neighbors1:
-            r[x]=general_PRs(x,p)
+            r[x]=pRs(x,p)
         m=max(r, key=r.get)
         if r[m]>k:
             top.append(m)
@@ -117,13 +117,13 @@ def general_FLS(I,K,docs,p):
     top=top[len(top)-1:len(top)-1-K:-1]
     return top
 
-def general_SLS(I,K,docs,p):
+def general_SLS(I,K,docs,p,pRs):
     random.seed()
     d=random.choice(docs)
     top=[]
-    k=general_PRs(d,p)
+    k=pRs(d,p)
     for i in range(I):
-        r = { r:general_PRs(r,p) for r in neighbors(d) }
+        r = { r:pRs(r,p) for r in neighbors(d) }
         r = { k1:v for k1, v in r.items() if v > k }
         if len(r)>0:
             d = random.choice(list(r.keys()))
@@ -139,14 +139,14 @@ def general_SLS(I,K,docs,p):
     return top
 
 
-def general_SLS2(I,K,docs,p):
+def general_SLS2(I,K,docs,p,pRs):
     random.seed()
     dke = gen_doc_key_combos(docs)
     d=random.choice(docs)
     top=[]
-    k=general_PRs(d,p)
+    k=pRs(d,p)
     for i in range(I):
-        r = { r:general_PRs(r,p) for r in general_neighbors2(d,dke) }
+        r = { r:pRs(r,p) for r in general_neighbors2(d,dke) }
         r = { k1:v for k1, v in r.items() if v > k }
         if len(r)>0:
             d = random.choice(list(r.keys()))
@@ -166,6 +166,29 @@ def general_SLS2(I,K,docs,p):
         pass
     else:
         top=top[len(top)-1:len(top)-(K+1):-1]
+    return top
+
+def general_SLS4(I,K,docs,p,pRs):
+    random.seed()
+    if len(docs) <= K:
+        return [x for x in docs]
+
+    top=[]
+    totalprs = 0
+    for i in range(I):
+        d = random.choice(docs)
+        if d not in top:
+            if len(top) < K:
+                top.append(d)
+                totalprs += pRs(d,p)
+            else:
+                pos = random.randint(0,K-1)
+                oldpr = pRs(top[pos],p)
+                newpr = pRs(d,p)
+                if oldpr < newpr:
+                    top[pos] = d
+                    totalprs -= oldpr
+                    totalprs += newpr
     return top
 
 
@@ -191,7 +214,6 @@ def make_category_list():
     for k in pbase.questionaire:
         pdict[str(k)] = implementation.Person('%imaginary%'+str(k))
         pdict[str(k)].Qchange(str(k))
-        pdict[str(k)].set_weight(str(k),1.0)
     return pdict
 
 
@@ -216,23 +238,25 @@ I -- # of iterations for FLS, SLS, etc.
 K -- # of docs
 '''
 
-def use_category_list(clist,docs,method,I,K):
+def use_category_list(clist,docs,method,I,K,prs):
     """dict(str,Person) -> [Document] -> (int->int->[Documents]->Person->[Document]) ->
       int -> int -> dict(str,[Document])"""
     outdct = {}
     for k in clist:
         cat = clist[k]
-        outdct[k] = method(I,K,docs,cat)
+        outdct[k] = method(I,K,docs,cat,prs)
     return outdct
         
-def use_category_list_brute(clist,docs,I,K):
-    return use_category_list(clist,docs,general_brute_force_iter,I,K)
-def use_category_list_FLS(clist,docs,I,K):
-    return use_category_list(clist,docs,general_FLS,I,K)
-def use_category_list_SLS(clist,docs,I,K):
-    return use_category_list(clist,docs,general_SLS,I,K)
-def use_category_list_SLS2(clist,docs,I,K):
-    return use_category_list(clist,docs,general_SLS2,I,K)
+def use_category_list_brute(clist,docs,I,K,prs):
+    return use_category_list(clist,docs,general_brute_force_iter,I,K,prs)
+def use_category_list_FLS(clist,docs,I,K,prs):
+    return use_category_list(clist,docs,general_FLS,I,K,prs)
+def use_category_list_SLS(clist,docs,I,K,prs):
+    return use_category_list(clist,docs,general_SLS,I,K,prs)
+def use_category_list_SLS2(clist,docs,I,K,prs):
+    return use_category_list(clist,docs,general_SLS2,I,K,prs)
+def use_category_list_SLS4(clist,docs,I,K,prs):
+    return use_category_list(clist,docs,general_SLS4,I,K,prs)
 
 def fancy_results(dres, file=sys.stdout):
     """dict(str,[Document]) -> None"""
@@ -283,21 +307,14 @@ lo = implementation.Person("Laura")
 lo.Qchange('environmentalist')
 lo.Qchange('economist')
 lo.Qchange('lovesanimals')
-lo.set_weight('environmentalist', 0.2)
-lo.set_weight('economist', 0.3)
-lo.set_weight('lovesanimals', 0.5)
-#print (lo.name, lo.questionaire, lo.weights)
+#print (lo.name, lo.questionaire)
 
 chris = implementation.Person("Chris")
 chris.Qchange('30orOlder')
 chris.Qchange('SellsOil')
 chris.Qchange('works_in_industry')
 chris.Qchange('lovesanimals')
-chris.set_weight('30orOlder', 0.25)
-chris.set_weight('SellsOil', 0.3)
-chris.set_weight('works_in_industry', 0.35)
-chris.set_weight('lovesanimals', 0.1)
-#print (chris.name, chris.questionaire, chris.weights)
+#print (chris.name, chris.questionaire)
 
 ################################################
 # create test documents
@@ -326,7 +343,6 @@ d4.add_keyword('math')
 d4.add_keyword('foradults')
 d4.add_keyword('excessoil')
 d4.add_keyword('industry')
-d4.add_keyword('animals')
 
 docs = [d1,d2,d3,d4]
 
@@ -336,7 +352,23 @@ docs = [d1,d2,d3,d4]
 # returns the instance of class Person (category)
 def str_to_cat(s):
     cat = implementation.Person("%s" % s)
-    cat.Qchange(s)
+    try:
+        cat.Qchange(s)
+    except KeyError:
+        pass
+    return cat
+
+# helper function
+# takes string and creates an instance of class Person (category)
+# returns the instance of class Person (category)
+def str_to_cat_ex(s,base):
+    try:
+        cat = type(base)("%s" % s)
+        cat.Qchange(s)
+    except TypeError:
+        cat = str_to_cat(s)        
+    except AttributeError:
+        cat = str_to_cat(s)        
     return cat
 
 # generates clist for a user (helper method for list_per_user)
@@ -369,14 +401,23 @@ def find_doc_in_list_by_keywords(docs, keywords):
     return None #"Error. Document not found with that title."
     
 
+def prsWrapper(f):
+    def out(doc,person):
+        return f(doc)
+    return out
+
 # Input:
 # person is a user (instance of class Person)
 # docs is a list of all documents in the system
 # I is the number of iterations (moot point for brute force)
 # K is the number of documents in final list
+# prs is the personal ranking of a document
 # Output:
 # list of top k weighted documents for the specific user
 def list_per_user(person, docs, I, K, typ="sls2"):
+    return list_per_user_ex(person,docs,I,K,general_PRs,typ)
+
+def pregen_categories(person, docs, I, K, prs, typ="sls2"):
 
     # clist is a list of the categories the user belongs to
     clist = clist_per_user(person)
@@ -387,24 +428,30 @@ def list_per_user(person, docs, I, K, typ="sls2"):
     for i in clist:
         cat_list[i] = str_to_cat(i)
         
-
     # final_dict is a dictionary with keys as categories and values as a list of docs for that category
     if typ=="brute":
-        final_dict = use_category_list_brute(cat_list, docs, I, K)
+        final_dict = use_category_list_brute(cat_list, docs, I, K, prs)
+    elif typ=="sls4":
+        final_dict = use_category_list_SLS4(cat_list, docs, I, K, prs)
     else:
-        final_dict = use_category_list_SLS2(cat_list, docs, I, K)
+        final_dict = use_category_list_SLS2(cat_list, docs, I, K, prs)
+    return final_dict
 
+def list_per_user_ex(person, docs, I, K, prs, typ="sls2"):
+    final_dict = pregen_categories(person,docs,I,K,prs,typ)
     # for each document in value lists, store in dictionary as key and accumulate the value as weight
+    return list_per_user_pregen(person,docs,prs,K,final_dict)
+
+def list_per_user_pregen(person, docs, prs, K, pregen):
     weighted_docs = {}
-    for cat_string,value_list in final_dict.items():
+    for cat_string,value_list in pregen.items():
         
         # store weight and doc in dictionary weighted_docs
         cat_instance = str_to_cat(cat_string)
         for d in value_list:
-
             curr_doc = d #find_doc_in_list(docs, d)
             if curr_doc is not None:
-                curr_weight = general_PRs(curr_doc, cat_instance)
+                curr_weight = prs(curr_doc, cat_instance)
                 
                 if d not in weighted_docs.keys():
                     weighted_docs[d] = curr_weight
@@ -417,18 +464,25 @@ def list_per_user(person, docs, I, K, typ="sls2"):
 # sorts dictionary of documents by weight (selects highest k docs)
 # returns list of k docs (those most applicable to hybrid user)
 def select_top_k_docs(dict_of_docs, k):
+    # optimization (for future reference)
+    # if num of docs - k (non fits) is > k (fits), select top k
+    # if num of docs - k (non fits) is < k (fits), delete minimums until num of docs == k
+
     final_list = sorted(dict_of_docs,key=dict_of_docs.get,reverse=True)[:k]
     return final_list
 
 
 ################################################
 # FINAL TEST: do the methods return an accurate list of most applicable documents
-# for hybrid users???
+# for hybrid users??? YES!
 
 def post_evaluation(docs, person):
+    return post_evaluation_ex(docs,person,general_PRs)
+
+def post_evaluation_ex(docs, person, prs):
     n = 0
     for i in docs:
-        n += general_PRs(i, person)
+        n += prs(i, person)
     return n
 
 test_l = list_per_user(lo   , docs, 400, 3)

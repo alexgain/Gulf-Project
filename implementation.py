@@ -5,6 +5,17 @@ import copy
 import random
 import bisect
 
+
+def keywords_hash(dk):
+    out = 0
+    sign = 1
+    inc = 1
+    for k in dk:
+        out += sign*inc*(hash(k)+hash(dk[k]))
+        sign = -sign
+        inc += 1
+    return out
+
 class Document:
     title=''
     data=''
@@ -19,6 +30,19 @@ class Document:
 
     def __str__(self):
         return self.title
+    def __repr__(self):
+        s = ""
+        c = getattr(self,'__class__',None)
+        if c is not None:
+            m = getattr(self,'__module__',None)
+            if m is not None:
+                s += str(m)+'.'
+            m = getattr(self,'__name__','Document')
+            s += str(m)
+        else:
+            s = "Document"
+        s += '('+repr(self.title)+')'
+        return s
     def add_keyword(self,word):
         self.keywords[word]=True
     def print_keywords(self):
@@ -33,7 +57,8 @@ class Document:
     #def __eq__(self, other):
 #        return PRs(self) == PRs(other)
     def __hash__(self):
-        return hash(PRs(self))
+        #return hash(PRs(self))
+        return keywords_hash(self.keywords)
     def __ne__(self, other):
         return PRs(self)!=PRs(other)
     def __lt__(self,other):

@@ -4,30 +4,18 @@ from random import randint
 import random
 import copy
 import bisect
+import implementation
+import hybrid2
 
-class Document:
-    title=''
-    data=''
-    listed=0
-    keywords={}
+class Document(implementation.Document):
     def __init__(self,t):
+        super().__init__(t)
         self.title=t
         self.data=''
         self.listed=0
+        self.keywords={}
         for x in range(25):
             self.keywords[x]=True
-    def __str__(self):
-        return self.title
-    def add_keyword(self,word):
-        self.keywords[word]=True
-    def print_keywords(self):
-        print(self.keywords)
-    def remove_keyword(self,word):
-        self.keywords[word]=False
-    def increase(self,n):
-        self.listed+=n
-    def assign(self,kI):
-        self.keywords=kI
     def __hash__(self):
         return hash(PRs(self))
     def __ne__(self, other):
@@ -41,13 +29,14 @@ class Document:
     def __ge__(self,other):
         return PRs(self)>=PRs(other)
 
-class Person:
+class Person(implementation.Person):
     name=''
-    questionaire={}
-    for i in range(50):
-        exec("questionaire['k%d']=True"%i)
     def __init__(self,nam):
+        super().__init__(nam)
         self.name=nam
+        self.questionaire={}
+        for i in range(50):
+            exec("self.questionaire['k%d']=True"%i)
     def Qchange(self,q):
         self.questionaire[q]=not self.questionaire[q]    
     def print_q(self):
@@ -56,23 +45,27 @@ class Person:
 #-------------------------------------#
 
 documents=[]
-for i in range(100000):
+THOUSANDS = 10000
+ITERATIONS = 200
+TOPK = 10
+
+print("Generating %d documents..."%(THOUSANDS))
+for i in range(THOUSANDS):
     exec("d%d=Document('d%d')"%(i,i))
     exec("d%d.title='d%d'"%(i,i))
     exec("documents.append(d%d)"%i)
 
-
 #randnumbers=[]
 #for i in range(100):
  #   randnumbers.append(randint(0,1))
-for i in range(100000):
+for i in range(THOUSANDS):
     exec("k%d={}"%i)
     for j in range(25):
         exec("k%d[%d]=bool(randint(0,1))"%(i,j))
 
-for i in range(100000):
+for i in range(THOUSANDS):
     exec("d%d.assign(k%d)"%(i,i))
-
+print("Documents ready.")
 
 #------------------------------------#
 
@@ -290,18 +283,76 @@ def SLS2(I,K):
     top=top[len(top)-1:len(top)-(K+1):-1]
     return top
 
+def the_test():
+    tmp_it = input("Iterations: ")
+    if len(tmp_it) > 0:
+        try:
+            ITERATIONS = int(tmp_it)
+        except ValueError:
+            pass
+    tmp_it = input("Top ?: ")
+    if len(tmp_it) > 0:
+        try:
+            TOPK = int(tmp_it)
+        except ValueError:
+            pass
 
-t1=time.time()
-brute_force(10)
-t2=time.time()
-print(t2-t1)
+    results = []
+    t1=time.time()
+    resultsn = brute_force(TOPK)
+    results = [x for x in
+               [hybrid2.find_doc_in_list(documents,i) for i in resultsn] if x]
+    t2=time.time()
+    print()
+    print(t2-t1)
+    print(results)
+    print(hybrid2.post_evaluation_ex(results,person,hybrid2.prsWrapper(PRs)))
 
-t1=time.time()
-FLS(20,10)
-t2=time.time()
-print(t2-t1)
+    t1=time.time()
+    results = FLS(ITERATIONS,TOPK)
+    t2=time.time()
+    print()
+    print(t2-t1)
+    print(results)
+    print(hybrid2.post_evaluation_ex(results,person,hybrid2.prsWrapper(PRs)))
 
-t1=time.time()
-SLS3(20,10)
-t2=time.time()
-print(t2-t1)
+    t1=time.time()
+    #SLS3(20,10)
+    preresults = hybrid2.pregen_categories(person,documents,ITERATIONS,TOPK,
+                hybrid2.prsWrapper(PRs), "sls4")
+    t2=time.time()
+    print()
+    print(t2-t1)
+    t1=time.time()
+    #SLS3(20,10)
+    results = hybrid2.list_per_user_pregen(person,documents,
+                hybrid2.prsWrapper(PRs), TOPK, preresults)
+    t2=time.time()
+    print()
+    print(t2-t1)
+    print(results)
+    print(hybrid2.post_evaluation_ex(results,person,hybrid2.prsWrapper(PRs)))
+
+    t1=time.time()
+    #SLS3(20,10)
+    preresults = hybrid2.pregen_categories(person,documents,ITERATIONS,TOPK,
+                hybrid2.prsWrapper(PRs), "brute")
+    t2=time.time()
+    print()
+    print(t2-t1)
+    t1=time.time()
+    #SLS3(20,10)
+    results = hybrid2.list_per_user_pregen(person,documents,
+                hybrid2.prsWrapper(PRs), TOPK, preresults)
+    t2=time.time()
+    print()
+    print(t2-t1)
+    print(results)
+    print(hybrid2.post_evaluation_ex(results,person,hybrid2.prsWrapper(PRs)))
+
+
+keep_going = True
+while keep_going:
+    the_test()
+    y = input("Run the test again? (y/n): ")
+    keep_going = (y in ['y','Y','yes','Yes','1','True'])
