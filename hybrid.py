@@ -191,6 +191,7 @@ def make_category_list():
     for k in pbase.questionaire:
         pdict[str(k)] = implementation.Person('%imaginary%'+str(k))
         pdict[str(k)].Qchange(str(k))
+        pdict[str(k)].set_weight(str(k),1.0)
     return pdict
 
 
@@ -282,14 +283,21 @@ lo = implementation.Person("Laura")
 lo.Qchange('environmentalist')
 lo.Qchange('economist')
 lo.Qchange('lovesanimals')
-#print (lo.name, lo.questionaire)
+lo.set_weight('environmentalist', 0.2)
+lo.set_weight('economist', 0.3)
+lo.set_weight('lovesanimals', 0.5)
+#print (lo.name, lo.questionaire, lo.weights)
 
 chris = implementation.Person("Chris")
 chris.Qchange('30orOlder')
 chris.Qchange('SellsOil')
 chris.Qchange('works_in_industry')
 chris.Qchange('lovesanimals')
-#print (chris.name, chris.questionaire)
+chris.set_weight('30orOlder', 0.25)
+chris.set_weight('SellsOil', 0.3)
+chris.set_weight('works_in_industry', 0.35)
+chris.set_weight('lovesanimals', 0.1)
+#print (chris.name, chris.questionaire, chris.weights)
 
 ################################################
 # create test documents
@@ -318,6 +326,7 @@ d4.add_keyword('math')
 d4.add_keyword('foradults')
 d4.add_keyword('excessoil')
 d4.add_keyword('industry')
+d4.add_keyword('animals')
 
 docs = [d1,d2,d3,d4]
 
@@ -378,6 +387,7 @@ def list_per_user(person, docs, I, K, typ="sls2"):
     for i in clist:
         cat_list[i] = str_to_cat(i)
         
+
     # final_dict is a dictionary with keys as categories and values as a list of docs for that category
     if typ=="brute":
         final_dict = use_category_list_brute(cat_list, docs, I, K)
@@ -391,6 +401,7 @@ def list_per_user(person, docs, I, K, typ="sls2"):
         # store weight and doc in dictionary weighted_docs
         cat_instance = str_to_cat(cat_string)
         for d in value_list:
+
             curr_doc = d #find_doc_in_list(docs, d)
             if curr_doc is not None:
                 curr_weight = general_PRs(curr_doc, cat_instance)
@@ -406,17 +417,13 @@ def list_per_user(person, docs, I, K, typ="sls2"):
 # sorts dictionary of documents by weight (selects highest k docs)
 # returns list of k docs (those most applicable to hybrid user)
 def select_top_k_docs(dict_of_docs, k):
-    # optimization (for future reference)
-    # if num of docs - k (non fits) is > k (fits), select top k
-    # if num of docs - k (non fits) is < k (fits), delete minimums until num of docs == k
-
     final_list = sorted(dict_of_docs,key=dict_of_docs.get,reverse=True)[:k]
     return final_list
 
 
 ################################################
 # FINAL TEST: do the methods return an accurate list of most applicable documents
-# for hybrid users??? YES!
+# for hybrid users???
 
 def post_evaluation(docs, person):
     n = 0
